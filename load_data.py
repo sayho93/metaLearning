@@ -2,7 +2,7 @@ import numpy as np
 import os
 import random
 import tensorflow as tf
-from scipy import misc
+# from scipy import misc
 import imageio
 
 

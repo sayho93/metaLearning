@@ -41,6 +41,8 @@ def outer_eval_step(inp, model, meta_batch_size=25, num_inner_updates=1):
 def meta_train_fn(model, exp_string, data_generator,
                   n_way=5, meta_train_iterations=15000, meta_batch_size=25,
                   log=True, logdir='./log/model', k_shot=1, num_inner_updates=1, meta_lr=0.001):
+    tf.debugging.set_log_device_placement(True)
+
     SUMMARY_INTERVAL = 10
     SAVE_INTERVAL = 100
     PRINT_INTERVAL = 10
