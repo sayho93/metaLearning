@@ -118,9 +118,14 @@ class MAML(tf.keras.Model):
                         for key_w, key_grads in zip(weights, gradients):
                             fast_weights[key_w] = weights[key_w] - gradients[key_grads] * self.inner_update_lr
 
-                    # preds_ts = self.conv_layers(input_ts, fast_weights)
-                    # loss_ts = self.loss_func(preds_ts, label_ts)
-                    # acc_ts = accuracy(label_ts, preds_ts)
+                    # # 1) calculating gradients for inner task with training data
+                    #     grad = inner_tape.gradient(task_loss_tr_pre, weights)
+                    #
+                    # # 2) learning fast wegiths with inner task gradients (meta parameter "self.conv_layers.conv_weights" shouldn't be updated!)
+                    #     fast_weights = dict()
+                    #     update_w = [(weights[w] - grad[g] * self.inner_update_lr) for w, g in zip(weights, grad)]
+                    #     for name, w in zip(weights, update_w):
+                    #         fast_weights[name] = w
 
                 # calcuating adaptation loss(task_outputs_ts, task_losses_ts) with testing data [input_ts, label_ts]
                 task_outputs_ts.append(self.conv_layers(input_ts, fast_weights))
